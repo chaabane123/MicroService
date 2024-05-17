@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+// Define the service for managing clients
+service ClientService {
+  // RPC method for creating a client
+  rpc CreateClient(ClientRequest) returns (ClientResponse);
+
+  // RPC method for updating a client
+  rpc UpdateClient(ClientRequest) returns (ClientResponse);
+
+  // RPC method for deleting a client
+  rpc DeleteClient(ClientID) returns (DeleteResponse);
+
+  // RPC method for retrieving a client by ID
+  rpc GetClientByID(ClientID) returns (ClientResponse);
+
+  // RPC method for retrieving all clients
+  rpc GetAllClients(ClientListRequest) returns (ClientListResponse);
+}
+
+// Request message to create or update a client
+message ClientRequest {
+  string name = 1;
+  string email = 2;
+  int32 age = 3;
+}
+
+// Response message for create, update, and get operations
+message ClientResponse {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  int32 age = 4;
+}
+
+// Request message to delete a client
+message ClientID {
+  string id = 1;
+}
+
+// Response message for delete operation
+message DeleteResponse {
+  string id = 1;
+}
+
+// Request message to retrieve all clients with pagination support
+message ClientListRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+}
+
+// Response message for retrieving all clients
+message ClientListResponse {
+  repeated ClientResponse clients = 1;
+}

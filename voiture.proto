@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+// Define the service for managing voitures
+service VoitureService {
+  // RPC method for creating a voiture
+  rpc CreateVoiture(VoitureRequest) returns (VoitureResponse);
+
+  // RPC method for updating a voiture
+  rpc UpdateVoiture(VoitureRequest) returns (VoitureResponse);
+
+  // RPC method for deleting a voiture
+  rpc DeleteVoiture(VoitureID) returns (DeleteResponse);
+
+  // RPC method for retrieving a voiture by ID
+  rpc GetVoitureByID(VoitureID) returns (VoitureResponse);
+
+  // RPC method for retrieving all voitures
+  rpc GetAllVoitures(VoitureListRequest) returns (VoitureListResponse);
+}
+
+// Request message to create or update a voiture
+message VoitureRequest {
+  string marque = 1;
+  string serie = 2;
+}
+
+// Response message for create, update, and get operations
+message VoitureResponse {
+  string id = 1;
+  string marque = 2;
+  string serie = 3;
+}
+
+// Request message to delete a voiture
+message VoitureID {
+  string id = 1;
+}
+
+// Response message for delete operation
+message DeleteResponse {
+  string id = 1;
+}
+
+// Request message to retrieve all voitures with pagination support
+message VoitureListRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+}
+
+// Response message for retrieving all voitures
+message VoitureListResponse {
+  repeated VoitureResponse voitures = 1;
+}
